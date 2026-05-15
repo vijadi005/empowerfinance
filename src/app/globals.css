@@ -5653,3 +5653,60 @@ body {
     font-size: clamp(2.25rem, 10vw, 3.35rem) !important;
   }
 }
+
+/* Internal page hero copy fill */
+.page-hero {
+  display: grid !important;
+  align-content: center !important;
+  min-height: clamp(430px, 55vh, 640px) !important;
+  padding: clamp(4rem, 7vw, 6rem) clamp(2rem, 5vw, 4rem) !important;
+}
+
+.page-hero h1 {
+  width: min(100%, 1120px) !important;
+  max-width: 1120px !important;
+  font-size: clamp(3.6rem, 6.4vw, 6.3rem) !important;
+  line-height: 1.03 !important;
+}
+
+.page-hero > p:not(.eyebrow) {
+  width: min(100%, 980px) !important;
+  max-width: 980px !important;
+  margin-top: 1.65rem !important;
+  font-size: clamp(1.2rem, 2vw, 1.6rem) !important;
+  font-weight: 560 !important;
+  line-height: 1.58 !important;
+}
+
+.page-hero-with-image {
+  min-height: clamp(460px, 58vh, 680px) !important;
+  background:
+    linear-gradient(90deg, rgba(7, 29, 53, 0.94) 0%, rgba(7, 29, 53, 0.86) 48%, rgba(0, 122, 131, 0.38) 100%),
+    var(--page-hero-image) center / cover no-repeat !important;
+}
+
+.page-hero-with-image h1 {
+  width: min(100%, 1180px) !important;
+  max-width: 1180px !important;
+}
+
+.page-hero-with-image > p:not(.eyebrow) {
+  width: min(100%, 1040px) !important;
+  max-width: 1040px !important;
+}
+
+@media (max-width: 980px) {
+  .page-hero,
+  .page-hero-with-image {
+    min-height: auto !important;
+    padding: 3.5rem 1.6rem !important;
+  }
+
+  .page-hero h1 {
+    font-size: clamp(2.5rem, 9vw, 4.4rem) !important;
+  }
+
+  .page-hero > p:not(.eyebrow) {
+    font-size: clamp(1.05rem, 3vw, 1.28rem) !important;
+  }
+}
