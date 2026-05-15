@@ -5956,3 +5956,19 @@ h4 {
     text-align: center !important;
   }
 }
+
+/* Quiet footer headings */
+.site-footer h2,
+.footer-links h2,
+.footer-contact h2 {
+  margin-bottom: 0.25rem !important;
+  font-size: 0.78rem !important;
+  font-weight: 560 !important;
+  line-height: 1.2 !important;
+  letter-spacing: 0.04em !important;
+  text-transform: capitalize !important;
+}
+
+.site-footer .footer-main {
+  gap: 1.55rem !important;
+}
