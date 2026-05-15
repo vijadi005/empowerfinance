@@ -9,8 +9,8 @@ export const navItems = [
 ];
 
 export const brand = {
-  name: 'EmpowerFin',
-  tagline: 'Mortgage & Finance Consultant',
+  name: 'Empower Finance',
+  tagline: 'Founder & Credit Specialist',
   logo: '/images/empowerfin-logo.png',
 };
 
@@ -72,9 +72,9 @@ export const pageHeroes = {
 export const homeContent = {
   hero: {
     eyebrow: 'Mortgage broker & finance consultant',
-    title: 'Clear lending advice before you choose a home loan.',
+    title: 'Smart lending solutions. Stronger futures.',
     copy:
-      'Work with Puneet to compare lender options, understand your borrowing power, and structure a loan that fits your property plans.',
+      'Helping individuals and businesses achieve their goals with tailored lending solutions and expert guidance you can trust.',
     image: '/images/homehero.jpg',
     serviceChips: ['First home buyers', 'Refinancing', 'Investment loans', 'Construction loans'],
     proofList: ['30+ lenders compared', '1:1 loan strategy', 'Application to settlement'],

@@ -5217,3 +5217,341 @@ font-size: clamp(1.6rem, 2.4vw, 2rem) !important;
     justify-self: start;
   }
 }
+
+/* Empower Finance brand refresh */
+:root {
+  --brand-navy: #071d35;
+  --brand-navy-2: #0a2b48;
+  --brand-teal: #007a83;
+  --brand-teal-dark: #00545d;
+  --brand-cyan: #09a8b2;
+  --brand-ice: #eef3f4;
+  --brand-panel: #f8faf9;
+  --brand-ink: #071426;
+  --brand-muted: #536273;
+  --brand-line: rgba(7, 29, 53, 0.13);
+  --ink: var(--brand-ink);
+  --muted: var(--brand-muted);
+  --line: var(--brand-line);
+  --paper: #f1f4f4;
+  --teal: var(--brand-teal);
+  --teal-dark: var(--brand-navy);
+  --gold: var(--brand-teal);
+}
+
+body {
+  background:
+    linear-gradient(180deg, #f7f9f9 0%, #edf3f4 46%, #f7f9f9 100%) !important;
+  color: var(--brand-ink) !important;
+}
+
+.top-strip {
+  width: 100% !important;
+  margin: 0 !important;
+  padding: 0.55rem max(20px, calc((100vw - 1180px) / 2)) !important;
+  background: var(--brand-navy) !important;
+  color: #ffffff !important;
+}
+
+.top-strip a {
+  color: rgba(255, 255, 255, 0.86) !important;
+  font-weight: 650 !important;
+}
+
+.site-header {
+  width: min(1180px, calc(100% - 40px)) !important;
+  margin-top: 16px !important;
+  border: 1px solid rgba(7, 29, 53, 0.1) !important;
+  border-radius: 0 !important;
+  background: rgba(255, 255, 255, 0.96) !important;
+  box-shadow: 0 18px 48px rgba(7, 29, 53, 0.12) !important;
+}
+
+.brand-logo {
+  filter: contrast(1.1) saturate(0.25) !important;
+}
+
+.brand strong {
+  color: var(--brand-navy) !important;
+  font-size: 1.08rem !important;
+  font-weight: 850 !important;
+  letter-spacing: 0.01em !important;
+}
+
+.brand small {
+  color: var(--brand-teal) !important;
+  font-size: 0.74rem !important;
+  font-weight: 750 !important;
+  letter-spacing: 0.08em !important;
+  text-transform: uppercase !important;
+}
+
+.main-nav a {
+  border-radius: 0 !important;
+  color: #27384b !important;
+  font-weight: 700 !important;
+}
+
+.main-nav a:hover {
+  background: rgba(0, 122, 131, 0.1) !important;
+  color: var(--brand-teal-dark) !important;
+}
+
+.nav-cta,
+.primary-button,
+.footer-cta,
+.blog-card-link {
+  border: 1px solid var(--brand-teal) !important;
+  border-radius: 0 !important;
+  background: var(--brand-teal) !important;
+  color: #ffffff !important;
+  box-shadow: 0 16px 32px rgba(0, 84, 93, 0.22) !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.02em !important;
+}
+
+.secondary-button,
+.section-action .text-link,
+.section-heading.with-link .text-link {
+  border: 1px solid rgba(255, 255, 255, 0.72) !important;
+  border-radius: 0 !important;
+  background: rgba(255, 255, 255, 0.94) !important;
+  color: var(--brand-navy) !important;
+  box-shadow: 0 12px 28px rgba(7, 29, 53, 0.14) !important;
+}
+
+.hero-section {
+  position: relative !important;
+  isolation: isolate !important;
+  border-radius: 0 !important;
+  background:
+    linear-gradient(103deg, rgba(255, 255, 255, 0.96) 0%, rgba(255, 255, 255, 0.93) 46%, rgba(7, 29, 53, 0.12) 46.2%, rgba(7, 29, 53, 0.12) 48%, rgba(7, 29, 53, 0.76) 48.2%, rgba(7, 29, 53, 0.92) 100%),
+    var(--hero-image, url("/images/homehero.jpg")) right center / cover no-repeat !important;
+  box-shadow: 0 24px 64px rgba(7, 29, 53, 0.16) !important;
+}
+
+.hero-section::after {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: min(18vw, 210px);
+  height: 100%;
+  content: "";
+  background: linear-gradient(145deg, transparent 0 34%, rgba(0, 122, 131, 0.78) 34% 62%, var(--brand-navy) 62% 100%);
+  clip-path: polygon(42% 0, 100% 0, 100% 100%, 0 100%);
+  pointer-events: none;
+  z-index: -1;
+}
+
+.hero-copy {
+  max-width: 660px !important;
+}
+
+.hero-copy .eyebrow,
+.page-hero .eyebrow,
+.section-heading .eyebrow,
+.split-section .eyebrow,
+.calculator-intro .eyebrow {
+  width: fit-content !important;
+  border-bottom: 2px solid var(--brand-teal) !important;
+  border-radius: 0 !important;
+  padding: 0 0 0.45rem !important;
+  background: transparent !important;
+  color: var(--brand-navy) !important;
+  font-weight: 850 !important;
+  letter-spacing: 0.08em !important;
+}
+
+.hero-copy h1 {
+  max-width: 620px !important;
+  color: var(--brand-navy) !important;
+  font-family: Impact, Haettenschweiler, "Arial Narrow Bold", sans-serif !important;
+  font-size: clamp(3.2rem, 7vw, 5.55rem) !important;
+  font-weight: 900 !important;
+  letter-spacing: 0 !important;
+  line-height: 0.94 !important;
+  text-transform: uppercase !important;
+  text-shadow: none !important;
+}
+
+.hero-copy h1::after {
+  content: "" !important;
+}
+
+.hero-copy > p:not(.eyebrow) {
+  max-width: 540px !important;
+  color: #233247 !important;
+  font-size: 1.08rem !important;
+  font-weight: 560 !important;
+  line-height: 1.62 !important;
+}
+
+.hero-service-chips span,
+.quick-action-band a,
+.service-card,
+.blog-card,
+.value-grid article,
+.calculator-tool,
+.calculator-result,
+.calculator-disclaimer,
+.legal-content,
+.contact-panel {
+  border: 1px solid var(--brand-line) !important;
+  border-radius: 0 !important;
+  background: rgba(255, 255, 255, 0.92) !important;
+  box-shadow: 0 12px 30px rgba(7, 29, 53, 0.08) !important;
+}
+
+.hero-service-chips span {
+  color: var(--brand-navy) !important;
+}
+
+.hero-proof-list,
+.stats-band {
+  border-radius: 0 !important;
+  background: var(--brand-navy) !important;
+  color: #ffffff !important;
+}
+
+.stats-band div {
+  border-color: rgba(255, 255, 255, 0.16) !important;
+}
+
+.stats-band strong,
+.stats-band span,
+.hero-proof-list span {
+  color: #ffffff !important;
+}
+
+.section-heading h2,
+.split-section h2,
+.calculator-intro h2,
+.cta-section h2,
+.page-hero h1,
+.blog-post-hero h1 {
+  color: var(--brand-navy) !important;
+  font-family: Impact, Haettenschweiler, "Arial Narrow Bold", sans-serif !important;
+  font-weight: 900 !important;
+  letter-spacing: 0 !important;
+  text-transform: uppercase !important;
+}
+
+.section-heading h2 strong,
+.split-section h2 strong {
+  color: var(--brand-teal) !important;
+}
+
+.page-hero {
+  border-radius: 0 !important;
+  background:
+    linear-gradient(105deg, rgba(255, 255, 255, 0.96) 0 58%, rgba(7, 29, 53, 0.08) 58.2% 100%),
+    var(--brand-panel) !important;
+}
+
+.page-hero-with-image {
+  background:
+    linear-gradient(96deg, rgba(7, 29, 53, 0.92) 0%, rgba(7, 29, 53, 0.82) 54%, rgba(0, 122, 131, 0.56) 100%),
+    var(--page-hero-image) center / cover no-repeat !important;
+}
+
+.page-hero-with-image .eyebrow,
+.page-hero-with-image h1,
+.page-hero-with-image > p:not(.eyebrow) {
+  color: #ffffff !important;
+}
+
+.page-hero-with-image .eyebrow {
+  border-bottom-color: var(--brand-cyan) !important;
+}
+
+.service-card:first-child,
+.cta-section,
+.site-footer {
+  border-radius: 0 !important;
+  background: var(--brand-navy) !important;
+  color: #ffffff !important;
+}
+
+.service-card:first-child h3,
+.service-card:first-child p,
+.cta-section h2,
+.cta-section p,
+.cta-section .eyebrow,
+.site-footer h2,
+.site-footer a,
+.site-footer p,
+.site-footer span,
+.footer-bottom p,
+.footer-bottom span {
+  color: #ffffff !important;
+}
+
+.service-card span,
+.calculator-directory span {
+  background: var(--brand-teal) !important;
+  color: #ffffff !important;
+}
+
+.service-card h3,
+.blog-card-body h3,
+.value-grid h3,
+.calculator-heading h2 {
+  color: var(--brand-navy) !important;
+}
+
+.blog-card-body span,
+.blog-post-hero > span,
+.calculator-heading span,
+.calculator-result > span {
+  color: var(--brand-teal) !important;
+}
+
+.cta-section {
+  background:
+    linear-gradient(105deg, var(--brand-navy) 0%, var(--brand-navy-2) 58%, var(--brand-teal-dark) 100%) !important;
+}
+
+.site-footer {
+  box-shadow: 0 18px 52px rgba(7, 29, 53, 0.18) !important;
+}
+
+.footer-bottom {
+  border-top-color: rgba(255, 255, 255, 0.16) !important;
+  background: rgba(0, 0, 0, 0.16) !important;
+}
+
+.footer-bottom a {
+  color: var(--brand-cyan) !important;
+}
+
+@media (max-width: 980px) {
+  .hero-section {
+    background:
+      linear-gradient(180deg, rgba(255, 255, 255, 0.96), rgba(255, 255, 255, 0.88)),
+      var(--hero-image, url("/images/homehero.jpg")) center / cover no-repeat !important;
+  }
+
+  .hero-section::after {
+    display: none;
+  }
+
+  .hero-copy h1 {
+    font-size: clamp(2.5rem, 11vw, 4.2rem) !important;
+  }
+}
+
+@media (max-width: 640px) {
+  .top-strip {
+    padding-inline: 14px !important;
+  }
+
+  .site-header,
+  .hero-section,
+  .section-block,
+  .page-hero,
+  .split-section,
+  .cta-section,
+  .site-footer {
+    width: min(100% - 28px, 1180px) !important;
+  }
+}
