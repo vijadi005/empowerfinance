@@ -148,6 +148,14 @@ function formatDate(value: string) {
   }).format(new Date(value));
 }
 
+function slugify(value: string) {
+  return value
+    .toLowerCase()
+    .replace(/&/g, 'and')
+    .replace(/[^a-z0-9]+/g, '-')
+    .replace(/^-+|-+$/g, '');
+}
+
 function getFeaturedImage(post: WordPressPost) {
   const sizes = post.featuredImage?.node?.mediaDetails?.sizes || [];
   const largeImage = sizes.find((size) => size.name === 'large')?.sourceUrl;
@@ -159,10 +167,24 @@ function getFeaturedImage(post: WordPressPost) {
 function fallbackArticles(): BlogArticle[] {
   return articles.map((article) => ({
     ...article,
-    href: '/knowledge-hub',
-    slug: '',
+    href: `/knowledge-hub/${slugify(article.title)}`,
+    slug: slugify(article.title),
     date: '',
   }));
+}
+
+function fallbackPostBySlug(slug: string): BlogPost | null {
+  const article = fallbackArticles().find((fallbackArticle) => fallbackArticle.slug === slug);
+
+  if (!article) {
+    return null;
+  }
+
+  return {
+    ...article,
+    content: `<p>${article.excerpt}</p><p>For advice tailored to your income, deposit, goals, and borrowing position, speak with EmpowerFin before making a lending decision.</p>`,
+    sourceUrl: '',
+  };
 }
 
 function mapPost(post: WordPressPost): BlogPost {
@@ -199,8 +221,8 @@ export async function getBlogPostBySlug(slug: string): Promise<BlogPost | null> 
     const data = await getWordPressClient().request<BlogPostBySlugQueryResponse>(blogPostBySlugQuery, { slug });
     const post = data.postBy;
 
-    return post ? mapPost(post) : null;
+    return post ? mapPost(post) : fallbackPostBySlug(slug);
   } catch {
-    return null;
+    return fallbackPostBySlug(slug);
   }
 }
