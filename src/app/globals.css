@@ -5796,3 +5796,23 @@ body {
     font-size: clamp(2.1rem, 9vw, 3.1rem) !important;
   }
 }
+
+/* Display headings in title-style casing */
+h1,
+h2,
+h3,
+h4,
+.section-heading h2,
+.split-section h2,
+.calculator-intro h2,
+.cta-section h2,
+.page-hero h1,
+.blog-post-hero h1,
+.hero-copy h1,
+.service-card h3,
+.blog-card-body h3,
+.value-grid h3,
+.advisor-card h3,
+.calculator-heading h2 {
+  text-transform: capitalize !important;
+}
