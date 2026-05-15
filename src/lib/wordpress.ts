@@ -1,5 +1,6 @@
 import { articles } from '@/lib/site-data';
-import { GraphQLClient, gql } from 'graphql-request';
+import https from 'node:https';
+import { gql } from 'graphql-request';
 
 export type BlogArticle = {
   title: string;
@@ -53,6 +54,8 @@ type BlogPostBySlugQueryResponse = {
 
 const WORDPRESS_SITE_URL = process.env.WORDPRESS_SITE_URL || 'https://empowerfin.com.au';
 const WORDPRESS_GRAPHQL_ENDPOINT = process.env.WORDPRESS_GRAPHQL_ENDPOINT || `${WORDPRESS_SITE_URL}/graphql`;
+const WORDPRESS_GRAPHQL_ORIGIN_IP = process.env.WORDPRESS_GRAPHQL_ORIGIN_IP || '160.153.0.75';
+const WORDPRESS_ORIGIN_ENDPOINT = new URL('https://empowerfin.com.au/graphql');
 
 const blogPostFields = gql`
   fragment BlogPostFields on Post {
@@ -103,20 +106,84 @@ const blogPostBySlugQuery = gql`
   }
 `;
 
-let wordpressClient: GraphQLClient | null = null;
+async function requestWordPress<T>(query: string, variables: Record<string, unknown>): Promise<T> {
+  const endpoint = new URL(WORDPRESS_GRAPHQL_ENDPOINT);
 
-function getWordPressClient() {
-  if (!wordpressClient) {
-    wordpressClient = new GraphQLClient(WORDPRESS_GRAPHQL_ENDPOINT, {
-      fetch: (url, init) =>
-        fetch(url, {
-          ...init,
-          cache: 'no-store',
-        }),
-    });
+  if (WORDPRESS_GRAPHQL_ORIGIN_IP && endpoint.hostname === 'empowerfin.com.au') {
+    return requestWordPressOrigin<T>(endpoint, query, variables);
   }
 
-  return wordpressClient;
+  try {
+    const response = await fetch(endpoint, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ query, variables }),
+      cache: 'no-store',
+    });
+
+    const result = (await response.json()) as { data?: T; errors?: unknown };
+
+    if (!response.ok || result.errors || !result.data) {
+      throw new Error('WordPress GraphQL request failed');
+    }
+
+    return result.data;
+  } catch (error) {
+    if (WORDPRESS_GRAPHQL_ORIGIN_IP) {
+      return requestWordPressOrigin<T>(WORDPRESS_ORIGIN_ENDPOINT, query, variables);
+    }
+
+    throw error;
+  }
+}
+
+function requestWordPressOrigin<T>(
+  endpoint: URL,
+  query: string,
+  variables: Record<string, unknown>,
+): Promise<T> {
+  const body = JSON.stringify({ query, variables });
+
+  return new Promise((resolve, reject) => {
+    const request = https.request(
+      {
+        hostname: WORDPRESS_GRAPHQL_ORIGIN_IP,
+        servername: endpoint.hostname,
+        path: `${endpoint.pathname}${endpoint.search}`,
+        method: 'POST',
+        headers: {
+          Host: endpoint.hostname,
+          'Content-Type': 'application/json',
+          'Content-Length': Buffer.byteLength(body),
+        },
+      },
+      (response) => {
+        let responseBody = '';
+
+        response.on('data', (chunk) => {
+          responseBody += chunk;
+        });
+
+        response.on('end', () => {
+          try {
+            const result = JSON.parse(responseBody) as { data?: T; errors?: unknown };
+
+            if ((response.statusCode && response.statusCode >= 400) || result.errors || !result.data) {
+              reject(new Error('WordPress origin GraphQL request failed'));
+              return;
+            }
+
+            resolve(result.data);
+          } catch (error) {
+            reject(error);
+          }
+        });
+      },
+    );
+
+    request.on('error', reject);
+    request.end(body);
+  });
 }
 
 function decodeHtml(value: string) {
@@ -206,23 +273,25 @@ function mapPost(post: WordPressPost): BlogPost {
 
 export async function getBlogArticles(limit = 10): Promise<BlogArticle[]> {
   try {
-    const data = await getWordPressClient().request<BlogPostsQueryResponse>(blogPostsQuery, { first: limit });
+    const data = await requestWordPress<BlogPostsQueryResponse>(blogPostsQuery, { first: limit });
     const posts = data.posts?.nodes || [];
     const blogArticles = posts.map(mapPost);
 
     return blogArticles.length ? blogArticles : fallbackArticles().slice(0, limit);
-  } catch {
+  } catch (error) {
+    console.error('WordPress article list unavailable', error);
     return fallbackArticles().slice(0, limit);
   }
 }
 
 export async function getBlogPostBySlug(slug: string): Promise<BlogPost | null> {
   try {
-    const data = await getWordPressClient().request<BlogPostBySlugQueryResponse>(blogPostBySlugQuery, { slug });
+    const data = await requestWordPress<BlogPostBySlugQueryResponse>(blogPostBySlugQuery, { slug });
     const post = data.postBy;
 
     return post ? mapPost(post) : fallbackPostBySlug(slug);
-  } catch {
+  } catch (error) {
+    console.error(`WordPress article unavailable for slug: ${slug}`, error);
     return fallbackPostBySlug(slug);
   }
 }
