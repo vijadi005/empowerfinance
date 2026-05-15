@@ -5723,7 +5723,7 @@ body {
   display: block !important;
   position: relative !important;
   width: min(1180px, calc(100% - 40px)) !important;
-  min-height: clamp(430px, 52vh, 540px) !important;
+  min-height: clamp(340px, 42vh, 430px) !important;
   margin: 0.85rem auto 0 !important;
   overflow: hidden !important;
   border-radius: 0 !important;
@@ -5741,7 +5741,7 @@ body {
 .home-page .hero-copy {
   width: min(100%, 720px) !important;
   max-width: 720px !important;
-  padding: clamp(48px, 6vw, 72px) clamp(28px, 5vw, 64px) !important;
+  padding: clamp(34px, 4.5vw, 52px) clamp(28px, 5vw, 64px) !important;
 }
 
 .home-page .hero-copy .eyebrow {
@@ -5789,7 +5789,7 @@ body {
   }
 
   .home-page .hero-copy {
-    padding: 42px 24px !important;
+    padding: 34px 24px !important;
   }
 
   .home-page .hero-copy h1 {
