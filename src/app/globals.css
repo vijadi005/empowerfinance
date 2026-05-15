@@ -5693,3 +5693,27 @@ body {
     font-size: clamp(1.85rem, 8vw, 2.7rem) !important;
   }
 }
+
+/* Keep home hero copy clear of the image edge */
+.home-page .hero-copy {
+  flex: 0 1 560px !important;
+  max-width: 560px !important;
+}
+
+.home-page .hero-copy > p:not(.eyebrow) {
+  width: min(100%, 470px) !important;
+  max-width: 470px !important;
+  font-size: 0.96rem !important;
+  line-height: 1.52 !important;
+}
+
+@media (max-width: 980px) {
+  .home-page .hero-copy {
+    max-width: 100% !important;
+  }
+
+  .home-page .hero-copy > p:not(.eyebrow) {
+    width: 100% !important;
+    max-width: 620px !important;
+  }
+}
