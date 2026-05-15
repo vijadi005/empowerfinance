@@ -58,7 +58,10 @@ export function Footer({ content = defaultSiteContent }: { content?: SiteContent
           Empower Finance Pty Ltd is a credit representative (No. 000571186) of Finsure and Insurance Pty Ltd
           (Australian Credit License No. 384704).
         </p>
-        <span>© {new Date().getFullYear()} {brand.name}. All rights reserved.</span>
+        <span>
+          © {new Date().getFullYear()} {brand.name}. All rights reserved.{' '}
+          <Link href="/privacy-policy">Privacy Policy</Link>
+        </span>
       </div>
     </footer>
   );
