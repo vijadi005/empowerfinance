@@ -5935,3 +5935,24 @@ h4 {
     font-size: 0.74rem !important;
   }
 }
+
+/* Let desktop navigation use the full header width */
+@media (min-width: 981px) {
+  .site-header {
+    grid-template-columns: auto minmax(520px, 1fr) auto !important;
+    gap: clamp(1.5rem, 4vw, 4rem) !important;
+  }
+
+  .main-nav {
+    display: grid !important;
+    grid-template-columns: repeat(6, minmax(max-content, 1fr)) !important;
+    width: 100% !important;
+    gap: 0.25rem !important;
+  }
+
+  .main-nav a {
+    display: flex !important;
+    justify-content: center !important;
+    text-align: center !important;
+  }
+}
