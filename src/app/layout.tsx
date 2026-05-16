@@ -6,6 +6,10 @@ import './globals.css';
 
 export const metadata: Metadata = siteMetadata;
 
+function cx(...classes: string[]) {
+  return classes.filter(Boolean).join(' ');
+}
+
 const robotoCondensed = Roboto_Condensed({
   subsets: ['latin'],
   weight: ['400', '500', '600', '700', '800'],
@@ -20,7 +24,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <body className={robotoCondensed.variable} suppressHydrationWarning>{children}</body>
+      <body className={cx(robotoCondensed.className, robotoCondensed.variable)} suppressHydrationWarning>{children}</body>
     </html>
   );
 }

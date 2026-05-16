@@ -6050,3 +6050,18 @@ h4 {
 .site-footer .footer-main {
   gap: 1.55rem !important;
 }
+
+/* Final font enforcement */
+html,
+body,
+button,
+input,
+select,
+textarea {
+  font-family: var(--font-roboto-condensed), "Roboto Condensed", "Segoe UI", Arial, sans-serif !important;
+}
+
+body {
+  --font-sans: var(--font-roboto-condensed), "Roboto Condensed", "Segoe UI", Arial, sans-serif;
+  --font-serif: var(--font-roboto-condensed), "Roboto Condensed", "Segoe UI", Arial, sans-serif;
+}
