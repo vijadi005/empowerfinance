@@ -1,7 +1,10 @@
 import Link from 'next/link';
 import { SiteShell } from '@/components/SiteShell';
+import { createMetadata, seoPages } from '@/lib/seo';
 
 const updatedDate = '15 May 2026';
+
+export const metadata = createMetadata(seoPages.privacyPolicy);
 
 export default function PrivacyPolicyPage() {
   return (

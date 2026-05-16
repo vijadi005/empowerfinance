@@ -3,6 +3,7 @@ import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import { SiteShell } from '@/components/SiteShell';
 import { getBlogPostBySlug } from '@/lib/wordpress';
+import { createArticleMetadata } from '@/lib/seo';
 
 type BlogPostRouteProps = {
   params: Promise<{
@@ -11,6 +12,22 @@ type BlogPostRouteProps = {
 };
 
 export const dynamic = 'force-dynamic';
+
+export async function generateMetadata({ params }: BlogPostRouteProps) {
+  const { slug } = await params;
+  const post = await getBlogPostBySlug(slug);
+
+  if (!post) {
+    return {};
+  }
+
+  return createArticleMetadata({
+    title: post.title,
+    description: post.excerpt,
+    path: `/knowledge-hub/${slug}`,
+    image: post.image,
+  });
+}
 
 export default async function BlogPostRoute({ params }: BlogPostRouteProps) {
   const { slug } = await params;
