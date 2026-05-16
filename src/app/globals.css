@@ -4,7 +4,7 @@
 
 :root {
   color-scheme: light;
-  font-family: var(--font-google-sans), "Noto Sans", ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  font-family: var(--font-roboto-condensed), "Roboto Condensed", ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
   --ink: #111312;
   --muted: #5f6969;
   --line: #dde3df;
@@ -3260,8 +3260,8 @@ body {
   --green-accent: #a8d8b0;
   --bg-secondary: #f7f6f3;
   --text-muted-2: #6b6b6b;
-  --font-sans: var(--font-google-sans), "Noto Sans", "Segoe UI", Arial, sans-serif;
-  --font-serif: var(--font-google-sans), "Noto Sans", "Segoe UI", Arial, sans-serif;
+  --font-sans: var(--font-roboto-condensed), "Roboto Condensed", "Segoe UI", Arial, sans-serif;
+  --font-serif: var(--font-roboto-condensed), "Roboto Condensed", "Segoe UI", Arial, sans-serif;
 }
 
 body {
