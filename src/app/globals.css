@@ -6102,14 +6102,12 @@ body {
   padding-top: 1rem !important;
 }
 
-/* Home hero contact form */
+/* Home hero restored assessment panel */
 .home-page .hero-section {
-  display: grid !important;
-  grid-template-columns: minmax(0, 1fr) minmax(320px, 390px) !important;
-  gap: clamp(1.4rem, 4vw, 3rem) !important;
+  display: block !important;
   align-items: center !important;
-  min-height: clamp(460px, 58vh, 560px) !important;
-  padding: clamp(20px, 3vw, 36px) !important;
+  min-height: clamp(360px, 46vh, 450px) !important;
+  padding: clamp(18px, 2.5vw, 30px) !important;
 }
 
 .home-page .hero-copy {
@@ -6119,90 +6117,139 @@ body {
 }
 
 .home-page .hero-service-chips {
-  position: static !important;
+  position: absolute !important;
+  top: 50% !important;
+  right: clamp(28px, 5vw, 72px) !important;
+  z-index: 1 !important;
   display: flex !important;
-  width: min(100%, 620px) !important;
-  margin-top: 1.35rem !important;
-  transform: none !important;
-  flex-flow: row wrap !important;
+  width: min(280px, 28vw) !important;
+  margin: 0 !important;
+  transform: translateY(-50%) !important;
+  flex-direction: column !important;
   gap: 0.7rem !important;
 }
 
-.home-page .hero-contact-panel {
-  position: relative !important;
-  z-index: 1 !important;
-  width: 100% !important;
-  justify-self: end !important;
+.home-page .hero-service-chips span {
+  display: flex !important;
+  align-items: center !important;
+  gap: 0.65rem !important;
+  min-height: 42px !important;
+  padding: 0.68rem 0.85rem !important;
+  font-size: 0.92rem !important;
 }
 
-.home-page .hero-contact-panel .custom-contact-form {
-  grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
-  gap: 0.62rem 0.7rem !important;
-  border-color: rgba(255, 255, 255, 0.28) !important;
+.home-page .hero-service-chips span::before {
+  display: grid !important;
+  flex: 0 0 22px !important;
+  width: 22px !important;
+  height: 22px !important;
+  place-items: center !important;
+  border-radius: 999px !important;
+  background: var(--brand-cyan) !important;
+  color: var(--brand-navy) !important;
+  content: "\2713" !important;
+  font-size: 0.86rem !important;
+  font-weight: 900 !important;
+  line-height: 1 !important;
+}
+
+/* Expert guidance contact form */
+.home-page .trust-section {
+  grid-template-columns: minmax(0, 1fr) minmax(260px, 320px) !important;
+  gap: clamp(1.25rem, 3vw, 2rem) !important;
+}
+
+.home-page .trust-contact-form {
+  grid-column: 1 / -1 !important;
+}
+
+.home-page .trust-contact-form .custom-contact-form {
+  grid-template-columns: repeat(4, minmax(0, 1fr)) !important;
+  gap: 0.75rem !important;
   padding: clamp(1rem, 2vw, 1.25rem) !important;
   background: rgba(255, 255, 255, 0.94) !important;
   box-shadow: 0 18px 48px rgba(7, 29, 53, 0.22) !important;
-  backdrop-filter: blur(10px) !important;
 }
 
-.home-page .hero-contact-panel .contact-form-header {
-  gap: 0.2rem !important;
+.home-page .trust-contact-form .contact-form-header,
+.home-page .trust-contact-form .full-span,
+.home-page .trust-contact-form .contact-form-actions {
   grid-column: 1 / -1 !important;
+}
+
+.home-page .trust-contact-form .contact-form-header {
+  gap: 0.2rem !important;
   margin-bottom: 0 !important;
 }
 
-.home-page .hero-contact-panel .contact-form-header h2 {
+.home-page .trust-contact-form .contact-form-header h2 {
+  color: var(--brand-navy) !important;
   font-size: clamp(1.2rem, 1.7vw, 1.45rem) !important;
 }
 
-.home-page .hero-contact-panel .custom-contact-form label {
+.home-page .trust-contact-form .custom-contact-form label {
   gap: 0.32rem !important;
   font-size: 0.84rem !important;
 }
 
-.home-page .hero-contact-panel .custom-contact-form input,
-.home-page .hero-contact-panel .custom-contact-form select,
-.home-page .hero-contact-panel .custom-contact-form textarea {
+.home-page .trust-contact-form .custom-contact-form input,
+.home-page .trust-contact-form .custom-contact-form select,
+.home-page .trust-contact-form .custom-contact-form textarea {
   padding: 0.68rem 0.76rem !important;
   font-size: 0.94rem !important;
 }
 
-.home-page .hero-contact-panel .custom-contact-form input,
-.home-page .hero-contact-panel .custom-contact-form select {
+.home-page .trust-contact-form .custom-contact-form input,
+.home-page .trust-contact-form .custom-contact-form select {
   min-height: 40px !important;
 }
 
-.home-page .hero-contact-panel .custom-contact-form textarea {
+.home-page .trust-contact-form .custom-contact-form textarea {
+  height: 52px !important;
   min-height: 52px !important;
 }
 
-.home-page .hero-contact-panel .contact-form-actions {
-  grid-column: 1 / -1 !important;
-  gap: 0.7rem !important;
-}
-
-.home-page .hero-contact-panel .contact-form-actions .primary-button {
-  width: 100% !important;
+.home-page .trust-contact-form .contact-form-actions .primary-button {
   min-height: 42px !important;
   justify-content: center !important;
 }
 
 @media (max-width: 980px) {
   .home-page .hero-section {
-    grid-template-columns: 1fr !important;
     gap: 1.5rem !important;
     min-height: auto !important;
-    padding: 24px 22px !important;
+    padding: 20px 22px !important;
   }
 
-  .home-page .hero-copy,
-  .home-page .hero-contact-panel {
+  .home-page .hero-copy {
     max-width: 640px !important;
     justify-self: stretch !important;
   }
 
-  .home-page .hero-contact-panel .custom-contact-form {
+  .home-page .hero-service-chips {
+    position: static !important;
+    display: grid !important;
+    width: 100% !important;
+    margin-top: 1.35rem !important;
+    transform: none !important;
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+  }
+
+  .home-page .trust-section {
     grid-template-columns: 1fr !important;
-    max-width: 100% !important;
+  }
+
+  .home-page .trust-contact-form .custom-contact-form {
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+  }
+}
+
+@media (max-width: 640px) {
+  .home-page .hero-service-chips {
+    grid-template-columns: 1fr !important;
+  }
+
+  .home-page .trust-contact-form .custom-contact-form {
+    grid-template-columns: 1fr !important;
   }
 }

@@ -63,16 +63,13 @@ export async function HomePage() {
               </Link>
             </div>
           </div>
-          <div className="hero-contact-panel" aria-label="Contact EmpowerFin">
-            <ContactForm content={content.contactFormContent} />
-          </div>
         </section>
         <QuickActionBand content={content} />
         <StatsBand content={content} />
         <BrokerProofSection content={content} />
         <ServicePreview content={content} />
-        <TrustSection content={content} />
         <ProcessSection content={content} />
+        <TrustSection content={content} />
         <TestimonialsSection content={content} />
         <InsightsSection articles={blogArticles} content={content} />
         <CtaSection content={content} />
@@ -166,7 +163,7 @@ export function BrokerProofSection({ content = defaultSiteContent }: { content?:
 }
 
 export function TrustSection({ content = defaultSiteContent }: { content?: SiteContent }) {
-  const { consultant, sectionContent } = content;
+  const { consultant, contactFormContent, sectionContent } = content;
 
   return (
     <section className="split-section trust-section">
@@ -182,6 +179,9 @@ export function TrustSection({ content = defaultSiteContent }: { content?: SiteC
           <h3>{consultant.name}</h3>
           <p>{sectionContent.trust.advisorCopy}</p>
         </div>
+      </div>
+      <div className="trust-contact-form">
+        <ContactForm content={contactFormContent} />
       </div>
     </section>
   );
