@@ -137,7 +137,11 @@ export function ContactForm({ content = defaultContactFormContent }: { content?:
         <button className="primary-button" type="submit" disabled={isSubmitting}>
           {isSubmitting ? content.sending : content.submit}
         </button>
-        {status ? <p role="status">{status}</p> : null}
+        {status ? (
+          <p className="contact-form-status" role="status">
+            {status}
+          </p>
+        ) : null}
       </div>
     </form>
   );

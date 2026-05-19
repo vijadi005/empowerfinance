@@ -1065,6 +1065,12 @@ textarea {
   line-height: 1.45;
 }
 
+.contact-form-actions .contact-form-status {
+  flex-basis: 100%;
+  color: var(--brand-navy);
+  font-weight: 650;
+}
+
 .contact-map-panel {
   display: grid;
   grid-column: 1 / -1;
@@ -6212,6 +6218,14 @@ body {
 .home-page .trust-contact-form .contact-form-actions .primary-button {
   min-height: 42px !important;
   justify-content: center !important;
+}
+
+.home-page .trust-contact-form .contact-form-status {
+  width: 100% !important;
+  border-left: 3px solid var(--brand-cyan) !important;
+  padding: 0.6rem 0.75rem !important;
+  background: rgba(0, 122, 131, 0.08) !important;
+  color: var(--brand-navy) !important;
 }
 
 @media (max-width: 980px) {
