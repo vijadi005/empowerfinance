@@ -9,6 +9,11 @@ type ContactPayload = {
   message?: string;
 };
 
+type MailError = Error & {
+  code?: string;
+  responseCode?: number;
+};
+
 const requiredEnvVars = ['SMTP_HOST', 'SMTP_PORT', 'SMTP_USER', 'SMTP_PASS', 'SMTP_FROM', 'CONTACT_TO'];
 
 function missingEnvVars() {
@@ -108,6 +113,18 @@ export async function POST(request: Request) {
     return NextResponse.json({ ok: true });
   } catch (error) {
     console.error('Contact form submission failed', error);
+
+    const mailError = error as MailError;
+    if (mailError.code === 'EAUTH' || mailError.responseCode === 535) {
+      return NextResponse.json(
+        {
+          error:
+            'Email delivery is not configured correctly. Please call or email us directly while we fix this.',
+        },
+        { status: 502 },
+      );
+    }
+
     return NextResponse.json({ error: 'Something went wrong. Please try again.' }, { status: 500 });
   }
 }
