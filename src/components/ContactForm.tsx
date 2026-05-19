@@ -19,6 +19,21 @@ const initialFormState: FormState = {
   message: '',
 };
 
+function normalizeOptions(value: unknown) {
+  if (Array.isArray(value)) {
+    return value.filter((item): item is string => typeof item === 'string' && Boolean(item.trim()));
+  }
+
+  if (typeof value === 'string') {
+    return value
+      .split(/\r?\n|,/)
+      .map((item) => item.trim())
+      .filter(Boolean);
+  }
+
+  return [];
+}
+
 async function readResponseMessage(response: Response, fallback: string) {
   const text = await response.text();
 
@@ -38,6 +53,7 @@ export function ContactForm({ content = defaultContactFormContent }: { content?:
   const [form, setForm] = useState(initialFormState);
   const [status, setStatus] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const financeNeeds = normalizeOptions(content.financeNeeds);
 
   function updateField(field: keyof FormState, value: string) {
     setForm((current) => ({ ...current, [field]: value }));
@@ -117,7 +133,7 @@ export function ContactForm({ content = defaultContactFormContent }: { content?:
           <option value="" disabled>
             {content.placeholders.purpose}
           </option>
-          {content.financeNeeds.map((need) => (
+          {financeNeeds.map((need) => (
             <option key={need}>{need}</option>
           ))}
         </select>
