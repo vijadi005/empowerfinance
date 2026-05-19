@@ -63,7 +63,9 @@ export async function HomePage() {
               </Link>
             </div>
           </div>
-          <LoanAssessmentPanel content={content} />
+          <div className="hero-contact-panel" aria-label="Contact EmpowerFin">
+            <ContactForm content={content.contactFormContent} />
+          </div>
         </section>
         <QuickActionBand content={content} />
         <StatsBand content={content} />
