@@ -19,6 +19,21 @@ const initialFormState: FormState = {
   message: '',
 };
 
+async function readResponseMessage(response: Response, fallback: string) {
+  const text = await response.text();
+
+  if (!text) {
+    return fallback;
+  }
+
+  try {
+    const data = JSON.parse(text) as { error?: string };
+    return data.error || fallback;
+  } catch {
+    return fallback;
+  }
+}
+
 export function ContactForm({ content = defaultContactFormContent }: { content?: typeof defaultContactFormContent }) {
   const [form, setForm] = useState(initialFormState);
   const [status, setStatus] = useState('');
@@ -39,10 +54,9 @@ export function ContactForm({ content = defaultContactFormContent }: { content?:
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(form),
       });
-      const data = (await response.json()) as { error?: string };
 
       if (!response.ok) {
-        throw new Error(data.error || content.error);
+        throw new Error(await readResponseMessage(response, content.error));
       }
 
       setForm(initialFormState);

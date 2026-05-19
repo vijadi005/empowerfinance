@@ -33,76 +33,81 @@ function escapeHtml(value: string) {
 }
 
 export async function POST(request: Request) {
-  const missing = missingEnvVars();
+  try {
+    const missing = missingEnvVars();
 
-  if (missing.length > 0) {
-    return NextResponse.json(
-      { error: `Email is not configured. Missing: ${missing.join(', ')}` },
-      { status: 500 },
-    );
+    if (missing.length > 0) {
+      return NextResponse.json(
+        { error: `Email is not configured. Missing: ${missing.join(', ')}` },
+        { status: 500 },
+      );
+    }
+
+    const payload = (await request.json()) as ContactPayload;
+    const name = clean(payload.name);
+    const email = clean(payload.email);
+    const phone = clean(payload.phone);
+    const purpose = clean(payload.purpose);
+    const message = clean(payload.message);
+    const safe = {
+      name: escapeHtml(name),
+      email: escapeHtml(email),
+      phone: escapeHtml(phone),
+      purpose: escapeHtml(purpose),
+      message: escapeHtml(message),
+    };
+
+    if (!name || !email || !phone || !purpose || !message) {
+      return NextResponse.json({ error: 'Please complete all required fields.' }, { status: 400 });
+    }
+
+    if (!isValidEmail(email)) {
+      return NextResponse.json({ error: 'Please enter a valid email address.' }, { status: 400 });
+    }
+
+    const port = Number(process.env.SMTP_PORT);
+    const transporter = nodemailer.createTransport({
+      host: process.env.SMTP_HOST,
+      port,
+      secure: port === 465,
+      auth: {
+        user: process.env.SMTP_USER,
+        pass: process.env.SMTP_PASS,
+      },
+    });
+
+    await transporter.sendMail({
+      from: process.env.SMTP_FROM,
+      to: process.env.CONTACT_TO,
+      replyTo: email,
+      subject: `New EmpowerFin enquiry from ${name}`,
+      text: [
+        'New enquiry from empowerfin.vercel.app',
+        '',
+        `Name: ${name}`,
+        `Email: ${email}`,
+        `Phone: ${phone}`,
+        `Finance need: ${purpose}`,
+        '',
+        'Message:',
+        message,
+      ].join('\n'),
+      html: `
+        <div style="font-family: Arial, sans-serif; color: #17201f; line-height: 1.55;">
+          <h2 style="margin: 0 0 16px;">New EmpowerFin enquiry</h2>
+          <p><strong>Name:</strong> ${safe.name}</p>
+          <p><strong>Email:</strong> ${safe.email}</p>
+          <p><strong>Phone:</strong> ${safe.phone}</p>
+          <p><strong>Finance need:</strong> ${safe.purpose}</p>
+          <p><strong>Message:</strong></p>
+          <p style="white-space: pre-wrap;">${safe.message}</p>
+        </div>
+      `,
+    });
+
+    return NextResponse.json({ ok: true });
+  } catch (error) {
+    console.error('Contact form submission failed', error);
+    return NextResponse.json({ error: 'Something went wrong. Please try again.' }, { status: 500 });
   }
-
-  const payload = (await request.json()) as ContactPayload;
-  const name = clean(payload.name);
-  const email = clean(payload.email);
-  const phone = clean(payload.phone);
-  const purpose = clean(payload.purpose);
-  const message = clean(payload.message);
-  const safe = {
-    name: escapeHtml(name),
-    email: escapeHtml(email),
-    phone: escapeHtml(phone),
-    purpose: escapeHtml(purpose),
-    message: escapeHtml(message),
-  };
-
-  if (!name || !email || !phone || !purpose || !message) {
-    return NextResponse.json({ error: 'Please complete all required fields.' }, { status: 400 });
-  }
-
-  if (!isValidEmail(email)) {
-    return NextResponse.json({ error: 'Please enter a valid email address.' }, { status: 400 });
-  }
-
-  const port = Number(process.env.SMTP_PORT);
-  const transporter = nodemailer.createTransport({
-    host: process.env.SMTP_HOST,
-    port,
-    secure: port === 465,
-    auth: {
-      user: process.env.SMTP_USER,
-      pass: process.env.SMTP_PASS,
-    },
-  });
-
-  await transporter.sendMail({
-    from: process.env.SMTP_FROM,
-    to: process.env.CONTACT_TO,
-    replyTo: email,
-    subject: `New EmpowerFin enquiry from ${name}`,
-    text: [
-      'New enquiry from empowerfin.vercel.app',
-      '',
-      `Name: ${name}`,
-      `Email: ${email}`,
-      `Phone: ${phone}`,
-      `Finance need: ${purpose}`,
-      '',
-      'Message:',
-      message,
-    ].join('\n'),
-    html: `
-      <div style="font-family: Arial, sans-serif; color: #17201f; line-height: 1.55;">
-        <h2 style="margin: 0 0 16px;">New EmpowerFin enquiry</h2>
-        <p><strong>Name:</strong> ${safe.name}</p>
-        <p><strong>Email:</strong> ${safe.email}</p>
-        <p><strong>Phone:</strong> ${safe.phone}</p>
-        <p><strong>Finance need:</strong> ${safe.purpose}</p>
-        <p><strong>Message:</strong></p>
-        <p style="white-space: pre-wrap;">${safe.message}</p>
-      </div>
-    `,
-  });
-
-  return NextResponse.json({ ok: true });
 }
